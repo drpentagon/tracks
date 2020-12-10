@@ -22,8 +22,8 @@
     "url": "https://github.com/drpentagon/tracks/issues"
   },
   "homepage": "https://github.com/drpentagon/tracks#readme",
-  "devDependencies": {
-    "rollup": "^2.34.2",
-    "rollup-plugin-terser": "^7.0.0"
+  "dependencies": {
+    "source-map": "^0.7.3",
+    "tsc": "^1.20150623.0"
   }
 }
