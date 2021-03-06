@@ -5,7 +5,6 @@ export default class GraphicsHandler {
   constructor(parentNode: HTMLElement) {
     const width = parentNode.offsetWidth;
     const height = parentNode.offsetHeight;
-
     this.canvas = document.createElement("canvas");
     this.canvas.className = "canvas";
     this.canvas.setAttribute("width", `${width}`);
@@ -16,5 +15,17 @@ export default class GraphicsHandler {
     parentNode.appendChild(this.canvas);
     this.ctx = this.canvas.getContext("2d");
     this.ctx.lineWidth = 0.5;
+  }
+
+  set strokeStyle(style: string) {
+    this.ctx.strokeStyle = style;
+  }
+
+  drawLine(x1: number, y1: number, x2: number, y2: number) {
+    const { ctx } = this;
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
   }
 }
