@@ -1,3 +1,5 @@
+import Point from "./primitives/point";
+
 export default class GraphicsHandler {
   canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
@@ -19,6 +21,17 @@ export default class GraphicsHandler {
 
   set strokeStyle(style: string) {
     this.ctx.strokeStyle = style;
+  }
+
+  set fillStyle(style: string) {
+    this.ctx.fillStyle = style;
+  }
+
+  drawCircle(p: Point, r: number) {
+    const { ctx } = this;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, r, 0, 2 * Math.PI);
+    ctx.fill();
   }
 
   drawLine(x1: number, y1: number, x2: number, y2: number) {

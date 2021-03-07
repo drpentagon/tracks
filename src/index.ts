@@ -1,4 +1,5 @@
 import GraphicsHandler from "./graphicsHandler.js";
+import Point from "./primitives/point.js";
 
 const CONTAINER: HTMLElement = document.querySelector(".graphics-wrapper");
 
@@ -11,7 +12,8 @@ class Application {
   }
 
   start() {
-    this.gh.drawLine(-100, -100, 100, 100);
+    const p = new Point(100, 100);
+    p.render(this.gh);
   }
 }
 
