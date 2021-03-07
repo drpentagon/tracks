@@ -34,11 +34,11 @@ export default class GraphicsHandler {
     ctx.fill();
   }
 
-  drawLine(x1: number, y1: number, x2: number, y2: number) {
+  drawLine(p1: Point, p2: Point) {
     const { ctx } = this;
     ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x2, y2);
+    ctx.moveTo(p1.x, p1.y);
+    ctx.lineTo(p2.x, p2.y);
     ctx.stroke();
   }
 }
