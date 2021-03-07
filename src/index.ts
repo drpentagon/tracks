@@ -1,4 +1,5 @@
 import GraphicsHandler from "./graphicsHandler.js";
+import Primitive from "./primitives/primitive.js";
 import Point from "./primitives/point.js";
 
 const CONTAINER: HTMLElement = document.querySelector(".graphics-wrapper");
@@ -12,8 +13,12 @@ class Application {
   }
 
   start() {
-    const p = new Point(100, 100);
-    p.render(this.gh);
+    const objects: Primitive[] = [];
+    objects.push(new Point(100, 100));
+    objects.push(new Point(500, 400));
+    objects.push(new Point(300, 600));
+
+    objects.forEach((p) => p.render(this.gh));
   }
 }
 

@@ -1,6 +1,7 @@
 import GraphicsHandler from "../graphicsHandler";
+import Primitive from "./primitive";
 
-export default class Point {
+export default class Point implements Primitive {
   x: number;
   y: number;
   color: string;
