@@ -7,6 +7,7 @@ export default class Line implements Primitive {
   p2: Point;
   m: number;
   b: number;
+  vertical: boolean;
   color: string;
 
   constructor(p1: Point, p2: Point) {
@@ -18,6 +19,13 @@ export default class Line implements Primitive {
 
   updateLineEquation() {
     const { p1, p2 } = this;
+    this.vertical = p1.x === p2.x;
+    if (this.vertical) {
+      this.m = undefined;
+      this.b = undefined;
+      return;
+    }
+
     this.m = (p2.y - p1.y) / (p2.x - p1.x);
     this.b = p1.y - this.m * p1.x;
   }
