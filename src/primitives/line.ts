@@ -1,6 +1,6 @@
 import GraphicsHandler from "../graphicsHandler";
 import Primitive from "./primitive";
-import Point from "./point";
+import Point from "./point.js";
 
 export default class Line implements Primitive {
   p1: Point;

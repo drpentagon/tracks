@@ -2,7 +2,7 @@ import GraphicsHandler from "./graphicsHandler.js";
 import Primitive from "./primitives/primitive.js";
 import Point from "./primitives/point.js";
 import Line from "./primitives/line.js";
-import { getLinesIntersection } from "./mathHelper.js";
+import { getLinesIntersection, getNormal } from "./mathHelper.js";
 
 const CONTAINER: HTMLElement = document.querySelector(".graphics-wrapper");
 
@@ -49,10 +49,14 @@ class Application {
     this.then = this.now;
 
     const intersection: Point = getLinesIntersection(this.l1, this.l2);
+    const normal1: Line = getNormal(this.l2, this.l2.p1, 250);
+    const normal2: Line = getNormal(this.l2, this.l2.p2, 250);
 
     this.gh.clear();
     this.objects.forEach((p) => p.render(this.gh));
     intersection.render(this.gh);
+    normal1.render(this.gh);
+    normal2.render(this.gh);
 
     requestAnimationFrame(() => this.gameLoop());
   }
