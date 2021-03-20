@@ -8,25 +8,53 @@ const CONTAINER: HTMLElement = document.querySelector(".graphics-wrapper");
 
 class Application {
   gh: GraphicsHandler;
+  now: number;
+  then: number;
+  objects: Primitive[];
+  p: Point;
+  l1: Line;
+  l2: Line;
+
   constructor() {
     console.log("Applicaation initialized 2");
     this.gh = new GraphicsHandler(CONTAINER);
   }
 
   start() {
-    const l1: Line = new Line(new Point(100, 100), new Point(300, 400));
-    const l2: Line = new Line(new Point(800, 200), new Point(500, 500));
-    const objects: Primitive[] = [
-      l1,
-      l2,
-      l1.p1,
-      l1.p2,
-      l2.p1,
-      l2.p2,
-      getLinesIntersection(l1, l2),
+    this.p = new Point(800, 200);
+    this.l1 = new Line(new Point(100, 100), new Point(300, 400));
+    this.l2 = new Line(this.p, new Point(300, 500));
+    this.objects = [
+      this.l1,
+      this.l2,
+      this.l1.p1,
+      this.l1.p2,
+      this.l2.p1,
+      this.l2.p2,
     ];
 
-    objects.forEach((p) => p.render(this.gh));
+    this.gameLoop();
+  }
+
+  gameLoop() {
+    this.now = Date.now();
+
+    if (this.then != null) {
+      let delta = (this.now - this.then) / 1000;
+      this.p.y += delta * 80;
+      this.l2.updateLineEquation();
+      // Data.instance.update(delta);
+    }
+
+    this.then = this.now;
+
+    const intersection: Point = getLinesIntersection(this.l1, this.l2);
+
+    this.gh.clear();
+    this.objects.forEach((p) => p.render(this.gh));
+    intersection.render(this.gh);
+
+    requestAnimationFrame(() => this.gameLoop());
   }
 }
 

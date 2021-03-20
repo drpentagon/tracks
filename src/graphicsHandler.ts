@@ -3,16 +3,18 @@ import Point from "./primitives/point";
 export default class GraphicsHandler {
   canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
+  width: number;
+  height: number;
 
   constructor(parentNode: HTMLElement) {
-    const width = parentNode.offsetWidth;
-    const height = parentNode.offsetHeight;
+    this.width = parentNode.offsetWidth;
+    this.height = parentNode.offsetHeight;
     this.canvas = document.createElement("canvas");
     this.canvas.className = "canvas";
-    this.canvas.setAttribute("width", `${width}`);
-    this.canvas.setAttribute("height", `${height}`);
-    this.canvas.style.width = `${width}px`;
-    this.canvas.style.height = `${height}px`;
+    this.canvas.setAttribute("width", `${this.width}`);
+    this.canvas.setAttribute("height", `${this.height}`);
+    this.canvas.style.width = `${this.width}px`;
+    this.canvas.style.height = `${this.height}px`;
 
     parentNode.appendChild(this.canvas);
     this.ctx = this.canvas.getContext("2d");
@@ -25,6 +27,11 @@ export default class GraphicsHandler {
 
   set fillStyle(style: string) {
     this.ctx.fillStyle = style;
+  }
+
+  clear() {
+    this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+    this.ctx.clearRect(0, 0, this.width, this.height);
   }
 
   drawCircle(p: Point, r: number) {
