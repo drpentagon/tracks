@@ -22,6 +22,7 @@ function getNormal(l: Line, p: Point, length: number): Line {
     new Point(p.x - multiplier * dy, p.y + multiplier * dx)
   );
 }
+
 function getLineOffset(l, offset): Line {
   let dy: number = l.p2.y - l.p1.y;
   let dx: number = l.p2.x - l.p1.x;

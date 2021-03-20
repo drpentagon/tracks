@@ -30,6 +30,11 @@ export default class Line implements Primitive {
     this.b = p1.y - this.m * p1.x;
   }
 
+  isToTheRight(p: Point): boolean {
+    const { p1, p2 } = this;
+    return (p.x - p1.x) * (p2.y - p1.y) - (p.y - p1.y) * (p2.x - p1.x) < 0;
+  }
+
   render(gh: GraphicsHandler) {
     gh.strokeStyle = this.color;
     gh.drawLine(this.p1, this.p2);

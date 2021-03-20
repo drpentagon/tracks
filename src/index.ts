@@ -52,9 +52,10 @@ class Application {
 
     this.then = this.now;
 
-    const intersection: Point = getLinesIntersection(this.l1, this.l2);
-    const l1o: Line = getLineOffset(this.l1, -150);
-    const l2o: Line = getLineOffset(this.l2, -150);
+    const offset: number = this.l1.isToTheRight(this.p) ? 150 : -150;
+    const l1o: Line = getLineOffset(this.l1, offset);
+    const l2o: Line = getLineOffset(this.l2, offset);
+    const intersection: Point = getLinesIntersection(l1o, l2o);
 
     this.gh.clear();
     this.objects.forEach((p) => p.render(this.gh));
