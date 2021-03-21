@@ -34,11 +34,11 @@ export default class GraphicsHandler {
     this.ctx.clearRect(0, 0, this.width, this.height);
   }
 
-  drawCircle(p: Point, r: number) {
+  drawCircle(p: Point, r: number, filled: boolean = false) {
     const { ctx } = this;
     ctx.beginPath();
     ctx.arc(p.x, p.y, r, 0, 2 * Math.PI);
-    ctx.fill();
+    filled ? ctx.fill() : ctx.stroke();
   }
 
   drawLine(p1: Point, p2: Point) {

@@ -2,6 +2,8 @@ import GraphicsHandler from "./graphicsHandler.js";
 import Primitive from "./primitives/primitive.js";
 import Point from "./primitives/point.js";
 import Line from "./primitives/line.js";
+import Arc from "./primitives/arc.js";
+
 import {
   getLinesIntersection,
   getNormal,
@@ -56,10 +58,12 @@ class Application {
     const l1o: Line = getLineOffset(this.l1, offset);
     const l2o: Line = getLineOffset(this.l2, offset);
     const intersection: Point = getLinesIntersection(l1o, l2o);
+    const c: Arc = new Arc(intersection, 150);
 
     this.gh.clear();
     this.objects.forEach((p) => p.render(this.gh));
     intersection.render(this.gh);
+    c.render(this.gh);
     l1o.render(this.gh);
     l2o.render(this.gh);
 
