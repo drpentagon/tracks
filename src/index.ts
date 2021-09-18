@@ -1,73 +1,21 @@
 import GraphicsHandler from "./graphicsHandler.js";
-import Primitive from "./primitives/primitive.js";
-import Point from "./primitives/point.js";
-import Line from "./primitives/line.js";
-import Arc from "./primitives/arc.js";
-
-import {
-  getLinesIntersection,
-  getNormal,
-  getLineOffset,
-} from "./mathHelper.js";
+import Project from "./projects/project.js";
+import Fillet from "./projects/fillet.js";
 
 const CONTAINER: HTMLElement = document.querySelector(".graphics-wrapper");
 
 class Application {
   gh: GraphicsHandler;
-  now: number;
-  then: number;
-  objects: Primitive[];
-  p: Point;
-  l1: Line;
-  l2: Line;
+  project: Project;
 
   constructor() {
-    console.log("Applicaation initialized 2");
     this.gh = new GraphicsHandler(CONTAINER);
+    this.project = new Fillet(this.gh);
   }
 
   start() {
-    this.p = new Point(800, 200);
-    this.l1 = new Line(new Point(100, 100), new Point(300, 400));
-    this.l2 = new Line(new Point(400, 500), this.p);
-    this.objects = [
-      this.l1,
-      this.l2,
-      this.l1.p1,
-      this.l1.p2,
-      this.l2.p1,
-      this.l2.p2,
-    ];
-
-    this.gameLoop();
-  }
-
-  gameLoop() {
-    this.now = Date.now();
-
-    if (this.then != null) {
-      let delta = (this.now - this.then) / 1000;
-      this.p.y += delta * 80;
-      this.l2.updateLineEquation();
-      // Data.instance.update(delta);
-    }
-
-    this.then = this.now;
-
-    const offset: number = this.l1.isToTheRight(this.p) ? 150 : -150;
-    const l1o: Line = getLineOffset(this.l1, offset);
-    const l2o: Line = getLineOffset(this.l2, offset);
-    const intersection: Point = getLinesIntersection(l1o, l2o);
-    const c: Arc = new Arc(intersection, 150);
-
-    this.gh.clear();
-    this.objects.forEach((p) => p.render(this.gh));
-    intersection.render(this.gh);
-    c.render(this.gh);
-    l1o.render(this.gh);
-    l2o.render(this.gh);
-
-    requestAnimationFrame(() => this.gameLoop());
+    this.project.setup();
+    this.project.gameLoop();
   }
 }
 

@@ -13,7 +13,7 @@ export default class Line implements Primitive {
   constructor(p1: Point, p2: Point) {
     this.p1 = p1;
     this.p2 = p2;
-    this.color = "rgb(255,0,0)";
+    this.color = "rgb(200,200,200)";
     this.updateLineEquation();
   }
 

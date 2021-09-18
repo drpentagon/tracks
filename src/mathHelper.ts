@@ -1,7 +1,14 @@
+import Arc from "./primitives/arc.js";
 import Line from "./primitives/line.js";
 import Point from "./primitives/point.js";
 
-export { getLinesIntersection, getNormal, getLineOffset };
+export {
+  getLinesIntersection,
+  getNormal,
+  getLineOffset,
+  getProjection,
+  getArcFromPoints,
+};
 
 function getLinesIntersection(l1: Line, l2: Line): Point {
   if (!l1 || !l2 || l1.m === l2.m) return null;
@@ -32,4 +39,25 @@ function getLineOffset(l, offset): Line {
     new Point(l.p1.x - multiplier * dy, l.p1.y + multiplier * dx),
     new Point(l.p2.x - multiplier * dy, l.p2.y + multiplier * dx)
   );
+}
+
+function getProjection(l: Line, c: Point, length: number): Point {
+  let dy: number = l.p2.y - l.p1.y;
+  let dx: number = l.p2.x - l.p1.x;
+  const multiplier: number = length / Math.sqrt(dx * dx + dy * dy);
+
+  return new Point(c.x + multiplier * dy, c.y - multiplier * dx);
+}
+
+function getArcFromPoints(
+  p1: Point,
+  p2: Point,
+  c: Point,
+  r: number,
+  counterClockwise: boolean
+): Arc {
+  const startAngle: number = Math.atan2(p1.y - c.y, p1.x - c.x);
+  const endAngle: number = Math.atan2(p2.y - c.y, p2.x - c.x);
+
+  return new Arc(c, r, startAngle, endAngle, counterClockwise);
 }

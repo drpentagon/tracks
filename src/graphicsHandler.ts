@@ -29,6 +29,10 @@ export default class GraphicsHandler {
     this.ctx.fillStyle = style;
   }
 
+  set lineWidth(width: number) {
+    this.ctx.lineWidth = width;
+  }
+
   clear() {
     this.ctx.setTransform(1, 0, 0, 1, 0, 0);
     this.ctx.clearRect(0, 0, this.width, this.height);
@@ -39,6 +43,19 @@ export default class GraphicsHandler {
     ctx.beginPath();
     ctx.arc(p.x, p.y, r, 0, 2 * Math.PI);
     filled ? ctx.fill() : ctx.stroke();
+  }
+
+  drawArc(
+    p: Point,
+    r: number,
+    startAngle: number,
+    endAngle: number,
+    counterClockwise: boolean = false
+  ) {
+    const { ctx } = this;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, r, startAngle, endAngle, counterClockwise);
+    ctx.stroke();
   }
 
   drawLine(p1: Point, p2: Point) {

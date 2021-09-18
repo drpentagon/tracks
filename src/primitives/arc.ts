@@ -5,16 +5,34 @@ import Point from "./point.js";
 export default class Arc implements Primitive {
   c: Point;
   r: number;
+  startAngle: number;
+  endAngle: number;
+  counterClockwise: boolean;
   color: string;
 
-  constructor(c: Point, r: number) {
+  constructor(
+    c: Point,
+    r: number,
+    startAngle: number,
+    endAngle: number,
+    counterClockwise: boolean = false
+  ) {
     this.c = c;
     this.r = r;
-    this.color = "rgb(255,0,0)";
+    this.startAngle = startAngle;
+    this.endAngle = endAngle;
+    this.color = "rgb(200,200,200)";
+    this.counterClockwise = counterClockwise;
   }
 
   render(gh: GraphicsHandler) {
-    gh.fillStyle = this.color;
-    gh.drawCircle(this.c, this.r);
+    gh.strokeStyle = this.color;
+    gh.drawArc(
+      this.c,
+      this.r,
+      this.startAngle,
+      this.endAngle,
+      this.counterClockwise
+    );
   }
 }
