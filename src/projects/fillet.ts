@@ -23,9 +23,6 @@ export default class Fillet implements Project {
 
   constructor(gh: GraphicsHandler) {
     this.gh = gh;
-  }
-
-  setup() {
     this.p = new Point(700, -200);
     this.l1 = new Line(new Point(100, 100), new Point(300, 400));
     this.l2 = new Line(new Point(400, 500), this.p);

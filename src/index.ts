@@ -1,6 +1,6 @@
 import GraphicsHandler from "./graphicsHandler.js";
 import Project from "./projects/project.js";
-import Fillet from "./projects/fillet.js";
+import Repelling from "./projects/repelling.js";
 
 const CONTAINER: HTMLElement = document.querySelector(".graphics-wrapper");
 
@@ -10,11 +10,10 @@ class Application {
 
   constructor() {
     this.gh = new GraphicsHandler(CONTAINER);
-    this.project = new Fillet(this.gh);
+    this.project = new Repelling(this.gh);
   }
 
   start() {
-    this.project.setup();
     this.project.gameLoop();
   }
 }
