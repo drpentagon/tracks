@@ -59,8 +59,8 @@ export default class Repelling implements Project {
 
   addWallForces(point: Point) {
     const FORCE = 5000;
-    point.dx += FORCE / point.x + FORCE / (point.x - this.canvasWidth);
-    point.dy += FORCE / point.y + FORCE / (point.y - this.canvasHeight);
+    point.dx += FORCE / point.x - FORCE / (this.canvasWidth - point.x);
+    point.dy += FORCE / point.y - FORCE / (this.canvasHeight - point.y);
   }
 
   addFriction(point: Point) {
@@ -69,14 +69,17 @@ export default class Repelling implements Project {
   }
 
   addAntiGravity(point: Point) {
-    const FORCE = 200;
+    const FORCE = 500;
     this.points.forEach((p) => {
       if (p !== point) {
         const dx: number = point.x - p.x;
         const dy: number = point.y - p.y;
-        const f = FORCE / Math.sqrt(dx * dx + dy * dy);
-        point.dx += (f * dx) / (Math.abs(dx) + Math.abs(dy));
-        point.dy += (f * dy) / (Math.abs(dx) + Math.abs(dy));
+        const d = Math.sqrt(dx * dx + dy * dy);
+        if (d < 500) {
+          const f = FORCE / d;
+          point.dx += (f * dx) / (Math.abs(dx) + Math.abs(dy));
+          point.dy += (f * dy) / (Math.abs(dx) + Math.abs(dy));
+        }
       }
     });
   }
