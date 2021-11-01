@@ -37,7 +37,10 @@ export default class GraphicsHandler {
 
   clear() {
     this.ctx.setTransform(1, 0, 0, 1, 0, 0);
-    this.ctx.clearRect(0, 0, this.width, this.height);
+    this.ctx.fillStyle = "rgb(255,255,255, 0.2)";
+    this.ctx.rect(0, 0, this.width, this.height);
+    this.ctx.fill();
+    // this.ctx.clearRect(0, 0, this.width, this.height);
   }
 
   drawCircle(p: Point, r: number, filled: boolean = false) {

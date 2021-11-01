@@ -1,0 +1,22 @@
+{
+  "child2": {
+    "headline": "SPLIT UI",
+    "background": "rgb(255,0,0)",
+    "color": "rgb(255, 255, 255)",
+    "project": "split-ui"
+  },
+  "child1": {
+    "child1": {
+      "headline": "GRAVITY",
+      "background": "rgb(0,0,0)",
+      "color": "rgb(255, 255, 255)",
+      "project": "gravity"
+    },
+    "child2": {
+      "headline": "ANTI GRAVITY",
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(0,0,0)",
+      "project": "antigravity"
+    }
+  }
+}
