@@ -10,15 +10,14 @@ const setup = async () => {
 };
 
 const addMenuNode = (el: HTMLElement, nodeData: any) => {
-  const { child1, child2 } = nodeData;
   el.classList.add("split-menu__cell");
-  if (child1 && child2) {
+  if (Array.isArray(nodeData) && nodeData.length >= 2) {
     setTimeout(() => {
       if (el.offsetWidth < el.offsetHeight) {
         el.classList.add("split-menu__cell--horizontal");
       }
-      addChild(el, child1);
-      addChild(el, child2);
+      addChild(el, nodeData[0]);
+      addChild(el, nodeData[1]);
     }, 0);
   } else {
     el.style.backgroundColor = nodeData.background;
@@ -28,7 +27,7 @@ const addMenuNode = (el: HTMLElement, nodeData: any) => {
   }
 };
 
-const addChild = (parent: HTMLElement, childData) => {
+const addChild = (parent: HTMLElement, childData: any) => {
   const child: HTMLElement = document.createElement("section");
   parent.appendChild(child);
   addMenuNode(child, childData);

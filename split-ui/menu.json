@@ -1,22 +1,54 @@
-{
-  "child2": {
-    "headline": "SPLIT UI",
-    "background": "rgb(255,0,0)",
-    "color": "rgb(255, 255, 255)",
-    "project": "split-ui"
-  },
-  "child1": {
-    "child1": {
+[
+  [
+    {
       "headline": "GRAVITY",
       "background": "rgb(0,0,0)",
-      "color": "rgb(255, 255, 255)",
       "project": "gravity"
     },
-    "child2": {
+    {
       "headline": "ANTI GRAVITY",
       "background": "rgb(255, 255, 255)",
-      "color": "rgb(0,0,0)",
       "project": "antigravity"
     }
-  }
-}
+  ],
+  [
+    [
+      {
+        "headline": "CONVEX HULL",
+        "background": "rgb(95,50,0)",
+        "project": "split-ui"
+      },
+      {
+        "headline": "VORONOI",
+        "background": "rgb(95,25,10)",
+        "project": "split-ui"
+      }
+    ],
+    [
+      {
+        "headline": "SPLIT UI",
+        "background": "rgb(0,80,40)",
+        "project": "split-ui"
+      },
+      [
+        [
+          {
+            "headline": "TOP 100 ALBUMS",
+            "background": "rgb(70,80,45)",
+            "project": "split-ui"
+          },
+          {
+            "headline": "TOP 100 MOVIES",
+            "background": "rgb(60,100,95)",
+            "project": "split-ui"
+          }
+        ],
+        {
+          "headline": "CONTACT",
+          "background": "rgb(60,70,65)",
+          "project": "split-ui"
+        }
+      ]
+    ]
+  ]
+]
