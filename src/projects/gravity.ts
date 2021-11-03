@@ -2,9 +2,9 @@ import GraphicsHandler from "../graphicsHandler";
 import Project from "./project";
 import Point from "../primitives/point.js";
 
-export default class Repelling implements Project {
-  title: string = "ANTI GRAVITY";
-  backgroundColor: string = "#4A6DE5";
+export default class Gravity implements Project {
+  title: string = "GRAVITY";
+  backgroundColor: string = "#000";
   color: string = "#FFF";
   gh: GraphicsHandler;
   now: number;
@@ -46,9 +46,7 @@ export default class Repelling implements Project {
     if (this.then != null) {
       let delta = (this.now - this.then) / 1000;
       this.points.forEach((p) => {
-        this.addWallForces(p);
         this.addAntiGravity(p);
-        this.addFriction(p);
       });
 
       this.points.forEach((p) => {
@@ -60,17 +58,6 @@ export default class Repelling implements Project {
     requestAnimationFrame(() => this.gameLoop());
   }
 
-  addWallForces(point: Point) {
-    const FORCE = 5000;
-    point.dx += FORCE / point.x - FORCE / (this.canvasWidth - point.x);
-    point.dy += FORCE / point.y - FORCE / (this.canvasHeight - point.y);
-  }
-
-  addFriction(point: Point) {
-    point.dx *= 0.99;
-    point.dy *= 0.99;
-  }
-
   addAntiGravity(point: Point) {
     const FORCE = 500;
     this.points.forEach((p) => {
@@ -78,11 +65,11 @@ export default class Repelling implements Project {
         const dx: number = point.x - p.x;
         const dy: number = point.y - p.y;
         const d = Math.sqrt(dx * dx + dy * dy);
-        if (d < 500) {
-          const f = FORCE / d;
-          point.dx += (f * dx) / (Math.abs(dx) + Math.abs(dy));
-          point.dy += (f * dy) / (Math.abs(dx) + Math.abs(dy));
-        }
+        //if (d < 500) {
+        const f = FORCE / d;
+        point.dx -= (f * dx) / (Math.abs(dx) + Math.abs(dy));
+        point.dy -= (f * dy) / (Math.abs(dx) + Math.abs(dy));
+        //}
       }
     });
   }

@@ -13,6 +13,9 @@ import {
 } from "../mathHelper.js";
 
 export default class Fillet implements Project {
+  backgroundColor: string = "#FFF";
+  color: string = "#666";
+  title: string = "BORDER RADIUS";
   gh: GraphicsHandler;
   now: number;
   then: number;

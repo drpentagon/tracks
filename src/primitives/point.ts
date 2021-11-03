@@ -12,7 +12,7 @@ export default class Point implements Primitive {
     this.x = x;
     this.y = y;
     this.dx = this.dy = 0;
-    this.color = "rgb(100,100,100)";
+    this.color = "rgb(255,255,255)";
   }
 
   update(delta: number) {
