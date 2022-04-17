@@ -4,6 +4,7 @@ import Point from "./primitives/point.js";
 
 export {
   getLinesIntersection,
+  getLineSegmentsIntersection,
   getNormal,
   getLineOffset,
   getProjection,
@@ -17,6 +18,20 @@ function getLinesIntersection(l1: Line, l2: Line): Point {
   const y = l1.m * x + l1.b;
 
   return new Point(x, y);
+}
+
+function getLineSegmentsIntersection(l1: Line, l2: Line): Point {
+  const p: Point = getLinesIntersection(l1, l2);
+  if (!p) return null;
+
+  if (
+    Math.min(l1.p1.x, l1.p2.x) < p.x &&
+    Math.max(l1.p1.x, l1.p2.x) > p.x &&
+    Math.min(l2.p1.x, l2.p2.x) < p.x &&
+    Math.max(l2.p1.x, l2.p2.x) > p.x
+  )
+    return p;
+  return null;
 }
 
 function getNormal(l: Line, p: Point, length: number): Line {

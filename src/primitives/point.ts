@@ -12,7 +12,7 @@ export default class Point implements Primitive {
     this.x = x;
     this.y = y;
     this.dx = this.dy = 0;
-    this.color = "rgb(255,255,255)";
+    this.color = "rgba(0,0,0,0.4)";
   }
 
   update(delta: number) {
@@ -22,6 +22,6 @@ export default class Point implements Primitive {
 
   render(gh: GraphicsHandler) {
     gh.fillStyle = this.color;
-    gh.drawCircle(this, 4, true);
+    gh.drawCircle(this, 2, true);
   }
 }

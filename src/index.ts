@@ -3,11 +3,13 @@ import Project from "./projects/project.js";
 import AntiGravity from "./projects/antiGravity.js";
 import Fillet from "./projects/fillet.js";
 import Gravity from "./projects/gravity.js";
+import LineIntersections from "./projects/lineIntersections.js";
 
 const PROJECTS: any = {
   gravity: Gravity,
   antigravity: AntiGravity,
   borderradius: Fillet,
+  lineIntersections: LineIntersections,
 };
 
 const CONTAINER: HTMLElement = document.querySelector(".graphics-wrapper");
@@ -28,5 +30,5 @@ class Application {
   }
 }
 
-const tracks: Application = new Application("gravity");
+const tracks: Application = new Application("lineIntersections");
 tracks.start();

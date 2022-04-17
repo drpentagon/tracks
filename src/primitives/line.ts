@@ -36,7 +36,11 @@ export default class Line implements Primitive {
   }
 
   render(gh: GraphicsHandler) {
-    gh.strokeStyle = this.color;
+    // const r: Number = Math.floor(Math.random() * 256);
+    // const g: Number = Math.floor(Math.random() * 256);
+    // const b: Number = Math.floor(Math.random() * 256);
+    // gh.strokeStyle = `rgba(${r},${g},${b},0.1)`;
+    gh.strokeStyle = "rgba(0,0,40,0.4)";
     gh.drawLine(this.p1, this.p2);
   }
 }
