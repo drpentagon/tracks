@@ -5,6 +5,7 @@ import Fillet from "./projects/fillet.js";
 import Gravity from "./projects/gravity.js";
 import Tetris from "./projects/tetris.js";
 import LineIntersections from "./projects/lineIntersections.js";
+import Isomulation from "./projects/isomulation.js";
 
 const PROJECTS: any = {
   gravity: Gravity,
@@ -12,6 +13,7 @@ const PROJECTS: any = {
   borderradius: Fillet,
   lineIntersections: LineIntersections,
   tetris: Tetris,
+  isomulation: Isomulation,
 };
 
 const CONTAINER: HTMLElement = document.querySelector(".graphics-wrapper");
@@ -32,5 +34,5 @@ class Application {
   }
 }
 
-const tracks: Application = new Application("lineIntersections");
+const tracks: Application = new Application("isomulation");
 tracks.start();
