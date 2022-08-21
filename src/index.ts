@@ -3,6 +3,7 @@ import Project from "./projects/project.js";
 import AntiGravity from "./projects/antiGravity.js";
 import Fillet from "./projects/fillet.js";
 import Gravity from "./projects/gravity.js";
+import Tetris from "./projects/tetris.js";
 import LineIntersections from "./projects/lineIntersections.js";
 
 const PROJECTS: any = {
@@ -10,6 +11,7 @@ const PROJECTS: any = {
   antigravity: AntiGravity,
   borderradius: Fillet,
   lineIntersections: LineIntersections,
+  tetris: Tetris,
 };
 
 const CONTAINER: HTMLElement = document.querySelector(".graphics-wrapper");
