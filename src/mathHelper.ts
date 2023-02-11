@@ -1,5 +1,5 @@
 import Arc from "./primitives/arc.js";
-import Line from "./primitives/line.js";
+import LineSegment from "./primitives/lineSegment.js";
 import Point from "./primitives/point.js";
 
 export {
@@ -11,7 +11,7 @@ export {
   getArcFromPoints,
 };
 
-function getLinesIntersection(l1: Line, l2: Line): Point {
+function getLinesIntersection(l1: LineSegment, l2: LineSegment): Point {
   if (!l1 || !l2 || l1.m === l2.m) return null;
 
   const x = (l2.b - l1.b) / (l1.m - l2.m);
@@ -20,7 +20,7 @@ function getLinesIntersection(l1: Line, l2: Line): Point {
   return new Point(x, y);
 }
 
-function getLineSegmentsIntersection(l1: Line, l2: Line): Point {
+function getLineSegmentsIntersection(l1: LineSegment, l2: LineSegment): Point {
   const p: Point = getLinesIntersection(l1, l2);
   if (!p) return null;
 
@@ -34,29 +34,29 @@ function getLineSegmentsIntersection(l1: Line, l2: Line): Point {
   return null;
 }
 
-function getNormal(l: Line, p: Point, length: number): Line {
+function getNormal(l: LineSegment, p: Point, length: number): LineSegment {
   let dy: number = l.p2.y - l.p1.y;
   let dx: number = l.p2.x - l.p1.x;
   const multiplier: number = length / Math.sqrt(dx * dx + dy * dy);
 
-  return new Line(
+  return new LineSegment(
     new Point(p.x, p.y),
     new Point(p.x - multiplier * dy, p.y + multiplier * dx)
   );
 }
 
-function getLineOffset(l, offset): Line {
+function getLineOffset(l: LineSegment, offset: number): LineSegment {
   let dy: number = l.p2.y - l.p1.y;
   let dx: number = l.p2.x - l.p1.x;
   const multiplier: number = offset / Math.sqrt(dx * dx + dy * dy);
 
-  return new Line(
+  return new LineSegment(
     new Point(l.p1.x - multiplier * dy, l.p1.y + multiplier * dx),
     new Point(l.p2.x - multiplier * dy, l.p2.y + multiplier * dx)
   );
 }
 
-function getProjection(l: Line, c: Point, length: number): Point {
+function getProjection(l: LineSegment, c: Point, length: number): Point {
   let dy: number = l.p2.y - l.p1.y;
   let dx: number = l.p2.x - l.p1.x;
   const multiplier: number = length / Math.sqrt(dx * dx + dy * dy);

@@ -1,6 +1,6 @@
 import GraphicsHandler from "../graphicsHandler.js";
 import Project from "../projects/project.js";
-import Line from "../primitives/line.js";
+import LineSegment from "../primitives/lineSegment.js";
 import Point from "../primitives/point.js";
 import BST from "../datastructures/BST.js";
 import { getLineSegmentsIntersection } from "../mathHelper.js";
@@ -12,12 +12,12 @@ export default class LineIntersections implements Project {
   gh: GraphicsHandler;
   now: number;
   then: number;
-  lines: Line[];
+  lineSegments: LineSegment[];
   intersections: Point[];
 
   constructor(gh: GraphicsHandler) {
     this.gh = gh;
-    this.lines = [];
+    this.lineSegments = [];
     this.intersections = [];
     const tree = new BST<number>();
     tree.insert(6);
@@ -35,7 +35,7 @@ export default class LineIntersections implements Project {
     console.log(tree);
 
     this.genereateLines(10);
-    this.intersections = this.findIntersections(this.lines);
+    this.intersections = this.findIntersections(this.lineSegments);
 
     // const now = Date.now();
     // this.intersections = this.findIntersectionsNaive(this.lines);
@@ -51,21 +51,21 @@ export default class LineIntersections implements Project {
     for (let i: number = 0; i < count; i++) {
       const p1 = new Point(Math.random() * width, Math.random() * height);
       const p2 = new Point(Math.random() * width, Math.random() * height);
-      this.lines.push(new Line(p1, p2));
+      this.lineSegments.push(new LineSegment(p1, p2));
     }
   }
 
-  findIntersectionsNaive(lines: Line[]): Point[] {
+  findIntersectionsNaive(lineSegments: LineSegment[]): Point[] {
     const intersections: Point[] = [];
-    lines.forEach((l1, i) => {
-      for (let j = i + 1; j < lines.length; j++) {
-        intersections.push(getLineSegmentsIntersection(l1, lines[j]));
+    lineSegments.forEach((l1, i) => {
+      for (let j = i + 1; j < lineSegments.length; j++) {
+        intersections.push(getLineSegmentsIntersection(l1, lineSegments[j]));
       }
     });
     return intersections.filter(Boolean);
   }
 
-  findIntersections(lineSegments: Line[]): Point[] {
+  findIntersections(lineSegments: LineSegment[]): Point[] {
     return null;
   }
 
