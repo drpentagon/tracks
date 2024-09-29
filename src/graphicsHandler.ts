@@ -67,4 +67,15 @@ export default class GraphicsHandler {
     ctx.lineTo(p2.x, p2.y);
     ctx.stroke();
   }
+
+  drawSquare(p: Point, s: number, filled: boolean = false) {
+    const { ctx } = this;
+    ctx.beginPath();
+    ctx.moveTo(p.x, p.y);
+    ctx.lineTo(p.x + s, p.y);
+    ctx.lineTo(p.x + s, p.y + s);
+    ctx.lineTo(p.x, p.y + s);
+    ctx.lineTo(p.x, p.y);
+    filled ? ctx.fill() : ctx.stroke();
+  }
 }

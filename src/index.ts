@@ -3,6 +3,7 @@ import Project from "./projects/project.js";
 import AntiGravity from "./projects/antiGravity.js";
 import Fillet from "./projects/fillet.js";
 import Gravity from "./projects/gravity.js";
+import Squared from "./projects/squared.js";
 import Tetris from "./projects/tetris.js";
 import LineIntersections from "./projects/lineIntersections.js";
 import Isomulation from "./projects/isomulation.js";
@@ -12,6 +13,7 @@ const PROJECTS: any = {
   antigravity: AntiGravity,
   borderradius: Fillet,
   lineIntersections: LineIntersections,
+  squared: Squared,
   tetris: Tetris,
   isomulation: Isomulation,
 };
@@ -34,5 +36,5 @@ class Application {
   }
 }
 
-const tracks: Application = new Application("borderradius");
+const tracks: Application = new Application("isomulation");
 tracks.start();
