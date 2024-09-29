@@ -22,6 +22,8 @@ export default class Line implements Primitive {
 
   render(gh: GraphicsHandler) {
     gh.strokeStyle = "rgba(0,0,40,0.4)";
-    // gh.drawLine(this.p1, this.p2);
+    const p1: Point = new Point(0, this.b);
+    const p2: Point = new Point(gh.width, gh.width * this.m + this.b);
+    gh.drawLine(p1, p2);
   }
 }

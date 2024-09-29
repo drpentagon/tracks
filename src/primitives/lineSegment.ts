@@ -43,4 +43,15 @@ export default class LineSegment implements Primitive {
     gh.strokeStyle = "rgba(0,0,40,0.4)";
     gh.drawLine(this.p1, this.p2);
   }
+
+  renderInfinit(gh: GraphicsHandler) {
+    gh.strokeStyle = "rgba(180,180,180,1.0)";
+    const p1: Point = this.vertical
+      ? new Point(this.p1.x, 0)
+      : new Point(0, this.b);
+    const p2: Point = this.vertical
+      ? new Point(this.p1.x, gh.height)
+      : new Point(gh.width, gh.width * this.m + this.b);
+    gh.drawLine(p1, p2);
+  }
 }
