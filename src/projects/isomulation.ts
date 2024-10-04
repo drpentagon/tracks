@@ -20,7 +20,6 @@ export default class Isomulation implements Project {
     this.grid = [];
     for (let d = 0; d < 3; d++) {
       const a: number = -Math.PI / 6 + (d * Math.PI) / 3;
-      console.log(Math.tan(a));
       const lines: LineSegment[] = [];
       const center: LineSegment = new LineSegment(
         new Point(this.gh.width / 2, this.gh.height / 2),
@@ -31,8 +30,8 @@ export default class Isomulation implements Project {
               this.gh.height / 2 + Math.tan(a) * 100
             )
       );
-      for (let i = -50; i < 50; i++) {
-        lines.push(getLineOffset(center, i * 50));
+      for (let i = -70; i < 70; i++) {
+        lines.push(getLineOffset(center, i * 25));
       }
 
       this.grid.push(lines);

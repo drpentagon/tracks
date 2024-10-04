@@ -5,10 +5,13 @@ import Point from "./point.js";
 export default class LineSegment implements Primitive {
   p1: Point;
   p2: Point;
+  lP1: Point;
+  lP2: Point;
   m: number;
   b: number;
   vertical: boolean;
   color: string;
+  lastUpdated: number;
 
   constructor(p1: Point, p2: Point) {
     this.p1 = p1;
@@ -30,6 +33,16 @@ export default class LineSegment implements Primitive {
     this.b = p1.y - this.m * p1.x;
   }
 
+  calculateLinePoints(gh) {
+    if (this.lastUpdated !== gh.lastUpdated) {
+      this.lP1 = this.vertical ? new Point(this.p1.x, 0) : new Point(0, this.b);
+      this.lP2 = this.vertical
+        ? new Point(this.p1.x, gh.height)
+        : new Point(gh.width, gh.width * this.m + this.b);
+      this.lastUpdated = gh.lastUpdated;
+    }
+  }
+
   isToTheRight(p: Point): boolean {
     const { p1, p2 } = this;
     return (p.x - p1.x) * (p2.y - p1.y) - (p.y - p1.y) * (p2.x - p1.x) < 0;
@@ -45,13 +58,8 @@ export default class LineSegment implements Primitive {
   }
 
   renderInfinit(gh: GraphicsHandler) {
-    gh.strokeStyle = "rgba(180,180,180,1.0)";
-    const p1: Point = this.vertical
-      ? new Point(this.p1.x, 0)
-      : new Point(0, this.b);
-    const p2: Point = this.vertical
-      ? new Point(this.p1.x, gh.height)
-      : new Point(gh.width, gh.width * this.m + this.b);
-    gh.drawLine(p1, p2);
+    gh.strokeStyle = "rgba(80,180,180,1.0)";
+    this.calculateLinePoints(gh);
+    gh.drawLine(this.lP1, this.lP2);
   }
 }

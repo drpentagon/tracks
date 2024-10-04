@@ -6,6 +6,7 @@ export default class GraphicsHandler {
   width: number;
   height: number;
   parent: HTMLElement;
+  lastUpdated: number;
 
   constructor(parentNode: HTMLElement) {
     this.width = parentNode.offsetWidth;
@@ -21,6 +22,7 @@ export default class GraphicsHandler {
     this.ctx = this.canvas.getContext("2d");
     this.ctx.lineWidth = 0.5;
     this.parent = parentNode;
+    this.lastUpdated = Date.now();
   }
 
   set strokeStyle(style: string) {
