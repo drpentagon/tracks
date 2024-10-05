@@ -1,8 +1,6 @@
 import GraphicsHandler from "../graphicsHandler";
 import Project from "./project";
-import Point from "../primitives/point.js";
-import LineSegment from "../primitives/lineSegment.js";
-import { getLineOffset } from "../mathHelper.js";
+import IsoGrid from "../composed/isoGrid.js";
 
 export default class Isomulation implements Project {
   backgroundColor: string = "#FFFF";
@@ -11,36 +9,16 @@ export default class Isomulation implements Project {
   gh: GraphicsHandler;
   now: number;
   then: number;
-
-  grid: LineSegment[][];
+  grid: IsoGrid;
 
   constructor(gh: GraphicsHandler) {
     this.gh = gh;
-
-    this.grid = [];
-    for (let d = 0; d < 3; d++) {
-      const a: number = -Math.PI / 6 + (d * Math.PI) / 3;
-      const lines: LineSegment[] = [];
-      const center: LineSegment = new LineSegment(
-        new Point(this.gh.width / 2, this.gh.height / 2),
-        Math.tan(a) > 1000000
-          ? new Point(this.gh.width / 2, this.gh.height / 2 - 100)
-          : new Point(
-              this.gh.width / 2 + 100,
-              this.gh.height / 2 + Math.tan(a) * 100
-            )
-      );
-      for (let i = -70; i < 70; i++) {
-        lines.push(getLineOffset(center, i * 25));
-      }
-
-      this.grid.push(lines);
-    }
+    this.grid = new IsoGrid(25, gh);
   }
 
   gameLoop() {
     this.gh.clear();
-    this.grid.forEach((d) => d.forEach((l) => l.renderInfinit(this.gh)));
+    this.grid.render(this.gh);
     requestAnimationFrame(() => this.gameLoop());
   }
 }
