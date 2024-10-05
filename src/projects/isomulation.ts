@@ -5,7 +5,7 @@ import LineSegment from "../primitives/lineSegment.js";
 import { getLineOffset } from "../mathHelper.js";
 
 export default class Isomulation implements Project {
-  backgroundColor: string = "#DDD";
+  backgroundColor: string = "#FFFF";
   color: string = "#600";
   title: string = "ISOMULATION";
   gh: GraphicsHandler;
@@ -39,8 +39,8 @@ export default class Isomulation implements Project {
   }
 
   gameLoop() {
-    this.grid.forEach((d) => {
-      d.forEach((l) => l.renderInfinit(this.gh));
-    });
+    this.gh.clear();
+    this.grid.forEach((d) => d.forEach((l) => l.renderInfinit(this.gh)));
+    requestAnimationFrame(() => this.gameLoop());
   }
 }

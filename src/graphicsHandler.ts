@@ -9,19 +9,23 @@ export default class GraphicsHandler {
   lastUpdated: number;
 
   constructor(parentNode: HTMLElement) {
-    this.width = parentNode.offsetWidth;
-    this.height = parentNode.offsetHeight;
+    this.parent = parentNode;
+    this.updateSize();
+  }
+
+  updateSize() {
+    this.width = this.parent.offsetWidth;
+    this.height = this.parent.offsetHeight;
+    this.canvas && this.canvas.remove();
     this.canvas = document.createElement("canvas");
     this.canvas.className = "canvas";
     this.canvas.setAttribute("width", `${this.width}`);
     this.canvas.setAttribute("height", `${this.height}`);
     this.canvas.style.width = `${this.width}px`;
     this.canvas.style.height = `${this.height}px`;
-
-    parentNode.appendChild(this.canvas);
+    this.parent.appendChild(this.canvas);
     this.ctx = this.canvas.getContext("2d");
     this.ctx.lineWidth = 0.5;
-    this.parent = parentNode;
     this.lastUpdated = Date.now();
   }
 

@@ -58,7 +58,7 @@ export default class LineSegment implements Primitive {
   }
 
   renderInfinit(gh: GraphicsHandler) {
-    gh.strokeStyle = "rgba(80,180,180,1.0)";
+    gh.strokeStyle = "rgba(180,180,180,1.0)";
     this.calculateLinePoints(gh);
     gh.drawLine(this.lP1, this.lP2);
   }
