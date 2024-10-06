@@ -8,6 +8,7 @@ export {
   getNormal,
   getLineOffset,
   getProjection,
+  getDistanceFromLine,
   getArcFromPoints,
 };
 
@@ -62,6 +63,11 @@ function getProjection(l: LineSegment, c: Point, length: number): Point {
   const multiplier: number = length / Math.sqrt(dx * dx + dy * dy);
 
   return new Point(c.x + multiplier * dy, c.y - multiplier * dx);
+}
+
+function getDistanceFromLine(l: LineSegment, p: Point): number {
+  if (l.vertical) return l.p1.x - p.x;
+  return (l.m * p.x - p.y + l.b) / Math.sqrt(l.m * l.m + 1);
 }
 
 function getArcFromPoints(

@@ -13,7 +13,7 @@ export default class Isomulation implements Project {
 
   constructor(gh: GraphicsHandler) {
     this.gh = gh;
-    this.grid = new IsoGrid(25, gh);
+    this.grid = new IsoGrid(30, gh);
   }
 
   gameLoop() {
