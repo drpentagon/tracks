@@ -2,46 +2,49 @@ import ComposedObject from "./composedObject";
 import GraphicsHandler from "../graphicsHandler";
 import LineSegment from "../primitives/lineSegment.js";
 import Point from "../primitives/point.js";
+import gtr from "../globalTranslation.js";
 import { getLineOffset, getDistanceFromLine } from "../mathHelper.js";
 
 export default class IsoGrid implements ComposedObject {
+  axes: number[][];
   spacing: number;
-  grid: LineSegment[][];
+  corners: Point[];
 
-  constructor(spacing: number, gh: GraphicsHandler) {
-    this.spacing = spacing;
-    this.grid = [];
-    const corners: Point[] = [
+  constructor(gh: GraphicsHandler) {
+    this.axes = [];
+    for (let d = 0; d < 3; d++) {
+      const angle: number = -Math.PI / 6 + (d * Math.PI) / 3;
+      const dy = Math.tan(angle);
+      this.axes.push(dy > 1000000 ? [0, -100] : [100, -dy * 100]);
+    }
+    this.setViewport(gh);
+  }
+
+  setViewport(gh: GraphicsHandler): void {
+    this.corners = [
       new Point(0, 0),
       new Point(gh.width, 0),
       new Point(gh.width, gh.height),
       new Point(0, gh.height),
     ];
+  }
 
-    for (let d = 0; d < 3; d++) {
-      const a: number = -Math.PI / 6 + (d * Math.PI) / 3;
-      const lines: LineSegment[] = [];
+  render(gh: GraphicsHandler) {
+    this.spacing = 30 * gtr.zoom;
+    this.axes.forEach((p2) => {
       const center: LineSegment = new LineSegment(
-        new Point(0, 0),
-        Math.tan(a) > 1000000
-          ? new Point(0, -100)
-          : new Point(100, -Math.tan(a) * 100)
+        gtr.toScreen(new Point(0, 0)),
+        gtr.toScreen(new Point(p2[0], p2[1]))
       );
-      const distances = corners.map(
+      const distances = this.corners.map(
         (p) => getDistanceFromLine(center, p) / this.spacing
       );
 
       const to = -Math.floor(Math.min(...distances));
       const from = -Math.ceil(Math.max(...distances));
       for (let i = from; i < to; i++) {
-        lines.push(getLineOffset(center, i * this.spacing));
+        getLineOffset(center, i * this.spacing).renderInfinit(gh);
       }
-
-      this.grid.push(lines);
-    }
-  }
-
-  render(gh: GraphicsHandler) {
-    this.grid.forEach((d) => d.forEach((l) => l.renderInfinit(gh)));
+    });
   }
 }
