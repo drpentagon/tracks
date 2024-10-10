@@ -1,6 +1,7 @@
 import GraphicsHandler from "../graphicsHandler";
 import Project from "./project";
 import IsoGrid from "../composed/isoGrid.js";
+import gtr from "../globalTranslation.js";
 
 export default class Isomulation implements Project {
   backgroundColor: string = "#FFFF";
@@ -14,6 +15,7 @@ export default class Isomulation implements Project {
   constructor(gh: GraphicsHandler) {
     this.gh = gh;
     this.grid = new IsoGrid(gh);
+    gtr.zoom = 80;
   }
 
   gameLoop() {
