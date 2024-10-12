@@ -15,6 +15,9 @@ export {
 function getLinesIntersection(l1: LineSegment, l2: LineSegment): Point {
   if (!l1 || !l2 || l1.m === l2.m) return null;
 
+  if (l1.vertical) return new Point(l1.p1.x, l2.m * l1.p1.x + l2.b);
+  if (l2.vertical) return new Point(l2.p1.x, l1.m * l2.p1.x + l1.b);
+
   const x = (l2.b - l1.b) / (l1.m - l2.m);
   const y = l1.m * x + l1.b;
 

@@ -2,6 +2,7 @@ import GraphicsHandler from "../graphicsHandler";
 import Project from "./project";
 import IsoGrid from "../composed/isoGrid.js";
 import gtr from "../globalTranslation.js";
+import Point from "../primitives/point.js";
 
 export default class Isomulation implements Project {
   backgroundColor: string = "#FFFF";
@@ -15,7 +16,8 @@ export default class Isomulation implements Project {
   constructor(gh: GraphicsHandler) {
     this.gh = gh;
     this.grid = new IsoGrid(gh);
-    gtr.zoom = 20;
+    gtr.zoom = 50;
+    gtr.pan = new Point(200, 200);
   }
 
   gameLoop() {

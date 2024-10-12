@@ -22,6 +22,6 @@ export default class Point implements Primitive {
 
   render(gh: GraphicsHandler) {
     gh.fillStyle = this.color;
-    gh.drawCircle(this, 2, true);
+    gh.drawCircle(this, 4, true);
   }
 }

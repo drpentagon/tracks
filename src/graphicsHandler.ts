@@ -1,4 +1,5 @@
 import Point from "./primitives/point";
+import gtr from "./globalTranslation.js";
 
 export default class GraphicsHandler {
   canvas: HTMLCanvasElement;
@@ -47,9 +48,10 @@ export default class GraphicsHandler {
   }
 
   drawCircle(p: Point, r: number, filled: boolean = false) {
+    const c: Point = gtr.toScreen(p);
     const { ctx } = this;
     ctx.beginPath();
-    ctx.arc(p.x, p.y, r, 0, 2 * Math.PI);
+    ctx.arc(c.x, c.y, r, 0, 2 * Math.PI);
     filled ? ctx.fill() : ctx.stroke();
   }
 
@@ -82,6 +84,15 @@ export default class GraphicsHandler {
     ctx.lineTo(p.x + s, p.y + s);
     ctx.lineTo(p.x, p.y + s);
     ctx.lineTo(p.x, p.y);
+    filled ? ctx.fill() : ctx.stroke();
+  }
+
+  drawPolygon(points: Point[], filled: boolean = false): void {
+    const { ctx } = this;
+    const start = gtr.toScreen(points[points.length - 1]);
+    ctx.beginPath();
+    ctx.moveTo(start.x, start.y);
+    points.map((p) => gtr.toScreen(p)).forEach((p) => ctx.lineTo(p.x, p.y));
     filled ? ctx.fill() : ctx.stroke();
   }
 }
