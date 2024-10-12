@@ -15,10 +15,11 @@ export default class Isomulation implements Project {
   constructor(gh: GraphicsHandler) {
     this.gh = gh;
     this.grid = new IsoGrid(gh);
-    gtr.zoom = 80;
+    gtr.zoom = 20;
   }
 
   gameLoop() {
+    this.grid.update();
     this.gh.clear();
     this.grid.render(this.gh);
     requestAnimationFrame(() => this.gameLoop());
