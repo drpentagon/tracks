@@ -36,11 +36,8 @@ class GlobalTranslation {
     return this.p;
   }
 
-  toScreen(p: Point): Point {
-    return new Point(
-      (p.x + this.p.x) * this.zoom,
-      (p.y + this.p.y) * this.zoom
-    );
+  toScreen(p: Point): [number, number] {
+    return [(p.x + this.p.x) * this.zoom, (p.y + this.p.y) * this.zoom];
   }
 
   toGlobal(x: number, y: number): Point {

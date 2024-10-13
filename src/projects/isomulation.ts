@@ -15,9 +15,9 @@ export default class Isomulation implements Project {
 
   constructor(gh: GraphicsHandler) {
     this.gh = gh;
-    this.grid = new IsoGrid(gh);
     gtr.zoom = 50;
-    gtr.pan = new Point(200, 200);
+    gtr.pan = new Point(20, 50);
+    this.grid = new IsoGrid(gh);
   }
 
   gameLoop() {

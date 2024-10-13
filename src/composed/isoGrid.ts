@@ -33,10 +33,10 @@ export default class IsoGrid implements ComposedObject {
 
   setViewport(gh: GraphicsHandler): void {
     this.corners = [
-      new Point(0, 0),
-      new Point(gh.width, 0),
-      new Point(gh.width, gh.height),
-      new Point(0, gh.height),
+      gtr.toGlobal(0, 0),
+      gtr.toGlobal(gh.width, 0),
+      gtr.toGlobal(gh.width, gh.height),
+      gtr.toGlobal(0, gh.height),
     ];
   }
 
@@ -50,24 +50,13 @@ export default class IsoGrid implements ComposedObject {
   }
 
   render(gh: GraphicsHandler) {
-    this.axes.forEach((s, i) => {
-      const center: LineSegment = new LineSegment(
-        gtr.toScreen(s.p1),
-        gtr.toScreen(s.p2)
-      );
-      const distances = this.corners.map(
-        (p) => getDistanceFromLine(center, p) / gtr.zoom
-      );
-
+    gh.strokeStyle = "rgba(180,180,180,1.0)";
+    this.axes.forEach((center, i) => {
+      const distances = this.corners.map((p) => getDistanceFromLine(center, p));
       const to = -Math.floor(Math.min(...distances));
       const from = -Math.ceil(Math.max(...distances));
-      const marked = this.hovered[i] || 0;
       for (let j = from; j < to; j++) {
-        gh.strokeStyle =
-          j === marked || j === marked - 1
-            ? "rgba(180,0,0,1.0)"
-            : "rgba(180,180,180,1.0)";
-        getLineOffset(center, j * gtr.zoom).renderInfinit(gh);
+        getLineOffset(center, j).renderInfinit(gh);
       }
     });
 

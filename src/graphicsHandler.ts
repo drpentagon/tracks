@@ -48,10 +48,9 @@ export default class GraphicsHandler {
   }
 
   drawCircle(p: Point, r: number, filled: boolean = false) {
-    const c: Point = gtr.toScreen(p);
     const { ctx } = this;
     ctx.beginPath();
-    ctx.arc(c.x, c.y, r, 0, 2 * Math.PI);
+    ctx.arc(p.x, p.y, r, 0, 2 * Math.PI);
     filled ? ctx.fill() : ctx.stroke();
   }
 
@@ -69,11 +68,10 @@ export default class GraphicsHandler {
   }
 
   drawLine(p1: Point, p2: Point) {
-    const { ctx } = this;
-    ctx.beginPath();
-    ctx.moveTo(p1.x, p1.y);
-    ctx.lineTo(p2.x, p2.y);
-    ctx.stroke();
+    this.beginPath();
+    this.moveTo(p1);
+    this.lineTo(p2);
+    this.stroke();
   }
 
   drawSquare(p: Point, s: number, filled: boolean = false) {
@@ -88,11 +86,34 @@ export default class GraphicsHandler {
   }
 
   drawPolygon(points: Point[], filled: boolean = false): void {
+    this.beginPath();
+    this.moveTo(points[points.length - 1]);
+    points.forEach((p) => this.lineTo(p));
+    filled ? this.fill() : this.stroke();
+  }
+
+  moveTo(p: Point): void {
     const { ctx } = this;
-    const start = gtr.toScreen(points[points.length - 1]);
+    ctx.moveTo(...gtr.toScreen(p));
+  }
+
+  lineTo(p: Point): void {
+    const { ctx } = this;
+    ctx.lineTo(...gtr.toScreen(p));
+  }
+
+  beginPath(): void {
+    const { ctx } = this;
     ctx.beginPath();
-    ctx.moveTo(start.x, start.y);
-    points.map((p) => gtr.toScreen(p)).forEach((p) => ctx.lineTo(p.x, p.y));
-    filled ? ctx.fill() : ctx.stroke();
+  }
+
+  fill(): void {
+    const { ctx } = this;
+    ctx.fill();
+  }
+
+  stroke(): void {
+    const { ctx } = this;
+    ctx.stroke();
   }
 }

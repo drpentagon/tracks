@@ -1,6 +1,7 @@
 import GraphicsHandler from "../graphicsHandler";
 import Primitive from "./primitive";
 import Point from "./point.js";
+import gtr from "../globalTranslation.js";
 
 export default class LineSegment implements Primitive {
   p1: Point;
@@ -35,10 +36,14 @@ export default class LineSegment implements Primitive {
 
   calculateLinePoints(gh) {
     if (this.lastUpdated !== gh.lastUpdated) {
-      this.lP1 = this.vertical ? new Point(this.p1.x, 0) : new Point(0, this.b);
+      const tl = gtr.toGlobal(0, 0);
+      const br = gtr.toGlobal(gh.width, gh.height);
+      this.lP1 = this.vertical
+        ? new Point(this.p1.x, tl.y)
+        : new Point(tl.x, this.m * tl.x + this.b);
       this.lP2 = this.vertical
-        ? new Point(this.p1.x, gh.height)
-        : new Point(gh.width, gh.width * this.m + this.b);
+        ? new Point(this.p1.x, br.y)
+        : new Point(br.x, this.m * br.x + this.b);
       this.lastUpdated = gh.lastUpdated;
     }
   }
