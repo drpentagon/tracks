@@ -18,11 +18,12 @@ export default class Isomulation implements Project {
   now: number;
   then: number;
   grid: IsoGrid;
+  panStart: Point;
 
   constructor(gh: GraphicsHandler) {
     this.staticGraphic = new GraphicsHandler(STATIC_CONTAINER);
     this.gh = gh;
-    gtr.zoom = 40;
+    gtr.zoom = 80;
     gtr.pan = new Point(20, 50);
     this.grid = new IsoGrid(this.staticGraphic);
     this.grid.render(this.staticGraphic);
@@ -34,6 +35,29 @@ export default class Isomulation implements Project {
       this.staticGraphic.clear();
       this.grid.render(this.staticGraphic);
     };
+
+    window.addEventListener("touchstart", (e) => {
+      this.panStart = new Point(e.touches[0].clientX, e.touches[0].clientY);
+    });
+
+    window.addEventListener("touchmove", (e) => {
+      const p: Point = new Point(e.touches[0].clientX, e.touches[0].clientY);
+      this.updatePanPosition(p.x - this.panStart.x, p.y - this.panStart.y);
+      this.panStart = p;
+    });
+
+    window.addEventListener("wheel", (e) =>
+      this.updatePanPosition(-e.deltaX, -e.deltaY)
+    );
+  }
+
+  updatePanPosition(dX: number, dY: number): void {
+    gtr.pan.x += dX / gtr.zoom;
+    gtr.pan.y += dY / gtr.zoom;
+
+    this.staticGraphic.clear();
+    this.grid.setViewport(this.staticGraphic);
+    this.grid.render(this.staticGraphic);
   }
 
   gameLoop() {

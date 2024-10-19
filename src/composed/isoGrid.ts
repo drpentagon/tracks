@@ -45,11 +45,12 @@ export default class IsoGrid implements ComposedObject {
   }
 
   render(gh: GraphicsHandler) {
-    gh.fillStyle = "rgba(0,0,0,0.02)";
+    gh.fillStyle = "rgba(0,0,0,0.05)";
     this.axes.forEach((center, i) => {
       const distances = this.corners.map((p) => getDistanceFromLine(center, p));
+      let from = -Math.ceil(Math.max(...distances));
       const to = -Math.floor(Math.min(...distances));
-      const from = -Math.ceil(Math.max(...distances));
+      if (from % 2 === 0) from -= 1;
       for (let j = from; j < to; j += 2) {
         const l1: [Point, Point] = getLineOffset(center, j).getInfinitPoints(
           gh
