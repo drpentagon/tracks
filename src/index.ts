@@ -27,9 +27,7 @@ class Application {
   constructor(type: string) {
     this.gh = new GraphicsHandler(CONTAINER);
     this.project = new PROJECTS[type](this.gh);
-    CONTAINER.style.backgroundColor = this.project.backgroundColor;
     document.title = this.project.title || document.title;
-    window.onresize = () => this.gh.updateSize();
   }
 
   start() {

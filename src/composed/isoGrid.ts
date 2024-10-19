@@ -49,6 +49,12 @@ export default class IsoGrid implements ComposedObject {
     );
   }
 
+  getGridPosition(x: number, y: number): number[] {
+    return this.axes.map(
+      (center) => -Math.floor(getDistanceFromLine(center, gtr.toGlobal(x, y)))
+    );
+  }
+
   render(gh: GraphicsHandler) {
     gh.strokeStyle = "rgba(180,180,180,1.0)";
     this.axes.forEach((center, i) => {
