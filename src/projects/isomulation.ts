@@ -22,7 +22,7 @@ export default class Isomulation implements Project {
   constructor(gh: GraphicsHandler) {
     this.staticGraphic = new GraphicsHandler(STATIC_CONTAINER);
     this.gh = gh;
-    gtr.zoom = 50;
+    gtr.zoom = 40;
     gtr.pan = new Point(20, 50);
     this.grid = new IsoGrid(this.staticGraphic);
     this.grid.render(this.staticGraphic);

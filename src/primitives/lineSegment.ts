@@ -34,7 +34,7 @@ export default class LineSegment implements Primitive {
     this.b = p1.y - this.m * p1.x;
   }
 
-  calculateLinePoints(gh) {
+  calculateLinePoints(gh: GraphicsHandler) {
     if (this.lastUpdated !== gh.lastUpdated) {
       const tl = gtr.toGlobal(0, 0);
       const br = gtr.toGlobal(gh.width, gh.height);
@@ -53,6 +53,11 @@ export default class LineSegment implements Primitive {
     return (p.x - p1.x) * (p2.y - p1.y) - (p.y - p1.y) * (p2.x - p1.x) < 0;
   }
 
+  getInfinitPoints(gh: GraphicsHandler): [Point, Point] {
+    this.calculateLinePoints(gh);
+    return [this.lP1, this.lP2];
+  }
+
   render(gh: GraphicsHandler) {
     // const r: Number = Math.floor(Math.random() * 256);
     // const g: Number = Math.floor(Math.random() * 256);
@@ -62,7 +67,7 @@ export default class LineSegment implements Primitive {
     gh.drawLine(this.p1, this.p2);
   }
 
-  renderInfinit(gh: GraphicsHandler) {
+  renderInfinit(gh: GraphicsHandler): void {
     this.calculateLinePoints(gh);
     gh.drawLine(this.lP1, this.lP2);
   }

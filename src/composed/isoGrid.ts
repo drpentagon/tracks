@@ -13,11 +13,9 @@ import mh from "../mouseHandler.js";
 export default class IsoGrid implements ComposedObject {
   axes: LineSegment[];
   corners: Point[];
-  hovered: number[];
 
   constructor(gh: GraphicsHandler) {
     this.axes = [];
-    this.hovered = [];
     for (let d = 0; d < 3; d++) {
       const angle: number = -Math.PI / 6 + (d * Math.PI) / 3;
       const dy = Math.tan(angle);
@@ -40,15 +38,6 @@ export default class IsoGrid implements ComposedObject {
     ];
   }
 
-  update(): void {
-    this.hovered = this.axes.map(
-      (center) =>
-        -Math.floor(
-          getDistanceFromLine(center, gtr.toGlobal(mh.pos.x, mh.pos.y))
-        )
-    );
-  }
-
   getGridPosition(x: number, y: number): number[] {
     return this.axes.map(
       (center) => -Math.floor(getDistanceFromLine(center, gtr.toGlobal(x, y)))
@@ -56,17 +45,22 @@ export default class IsoGrid implements ComposedObject {
   }
 
   render(gh: GraphicsHandler) {
-    gh.strokeStyle = "rgba(180,180,180,1.0)";
+    gh.fillStyle = "rgba(0,0,0,0.02)";
     this.axes.forEach((center, i) => {
       const distances = this.corners.map((p) => getDistanceFromLine(center, p));
       const to = -Math.floor(Math.min(...distances));
       const from = -Math.ceil(Math.max(...distances));
-      for (let j = from; j < to; j++) {
-        getLineOffset(center, j).renderInfinit(gh);
+      for (let j = from; j < to; j += 2) {
+        const l1: [Point, Point] = getLineOffset(center, j).getInfinitPoints(
+          gh
+        );
+        const l2: [Point, Point] = getLineOffset(
+          center,
+          j + 1
+        ).getInfinitPoints(gh);
+        gh.drawPolygon([l1[0], l1[1], l2[1], l2[0]], true);
       }
     });
-
-    this.fillPosition(this.hovered, gh);
   }
 
   fillPosition(coord: number[], gh: GraphicsHandler) {
