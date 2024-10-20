@@ -4,6 +4,7 @@ import IsoGrid from "../composed/isoGrid.js";
 import gtr from "../globalTranslation.js";
 import Point from "../primitives/point.js";
 import mh from "../mouseHandler.js";
+import Cube from "../primitives/cube.js";
 
 const STATIC_CONTAINER: HTMLElement = document.querySelector(
   ".static-graphics-wrapper"
@@ -23,8 +24,8 @@ export default class Isomulation implements Project {
   constructor(gh: GraphicsHandler) {
     this.staticGraphic = new GraphicsHandler(STATIC_CONTAINER);
     this.gh = gh;
-    gtr.zoom = 80;
-    gtr.pan = new Point(20, 50);
+    gtr.zoom = 30;
+    gtr.pan = new Point(0, 0);
     this.grid = new IsoGrid(this.staticGraphic);
     this.grid.render(this.staticGraphic);
 
@@ -62,10 +63,8 @@ export default class Isomulation implements Project {
 
   gameLoop() {
     this.gh.clear();
-    this.grid.fillPosition(
-      this.grid.getGridPosition(mh.pos.x, mh.pos.y),
-      this.gh
-    );
+    const coord = this.grid.getGridPosition(mh.pos.x, mh.pos.y);
+    this.grid.fillSquare([coord[0], coord[1]], this.gh);
     requestAnimationFrame(() => this.gameLoop());
   }
 }

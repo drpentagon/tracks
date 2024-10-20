@@ -82,4 +82,27 @@ export default class IsoGrid implements ComposedObject {
     gh.fillStyle = "rgba(0,0,0,0.3)";
     gh.drawPolygon([p1, p2, p3], true);
   }
+
+  fillSquare(coord: [number, number], gh: GraphicsHandler) {
+    const bounds = coord
+      .map((c, d) => [this.getLine(c, d), this.getLine(c - 1, d)])
+      .reduce((arr, c) => {
+        arr.push(c[0]);
+        arr.push(c[1]);
+        return arr;
+      }, []);
+
+    const p1: Point = getLinesIntersection(bounds[0], bounds[2]);
+    const p2: Point = getLinesIntersection(bounds[2], bounds[1]);
+    const p3: Point = getLinesIntersection(bounds[1], bounds[3]);
+    const p4: Point = getLinesIntersection(bounds[3], bounds[0]);
+
+    gh.fillStyle = "rgba(0,0,0,0.3)";
+    gh.drawPolygon([p1, p2, p3, p4], true);
+  }
+
+  getLine(offset: number, dimension: number): LineSegment {
+    if ([0, 1, 2].indexOf(dimension) < 0) return null;
+    return getLineOffset(this.axes[dimension], offset);
+  }
 }
