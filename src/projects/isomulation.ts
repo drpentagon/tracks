@@ -4,7 +4,7 @@ import IsoGrid from "../composed/isoGrid.js";
 import gtr from "../globalTranslation.js";
 import Point from "../primitives/point.js";
 import mh from "../mouseHandler.js";
-import Cube from "../primitives/cube.js";
+import Colors from "../colors.js";
 
 const STATIC_CONTAINER: HTMLElement = document.querySelector(
   ".static-graphics-wrapper"
@@ -28,6 +28,7 @@ export default class Isomulation implements Project {
     gtr.pan = new Point(0, 0);
     this.grid = new IsoGrid(this.staticGraphic);
     this.grid.render(this.staticGraphic);
+    Colors.initialize();
 
     window.onresize = () => {
       this.gh.updateSize();
