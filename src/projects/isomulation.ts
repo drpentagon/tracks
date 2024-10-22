@@ -5,6 +5,7 @@ import gtr from "../globalTranslation.js";
 import Point from "../primitives/point.js";
 import mh from "../mouseHandler.js";
 import Colors from "../colors.js";
+import Material from "../primitives/material.js";
 
 const STATIC_CONTAINER: HTMLElement = document.querySelector(
   ".static-graphics-wrapper"
@@ -20,6 +21,7 @@ export default class Isomulation implements Project {
   then: number;
   grid: IsoGrid;
   panStart: Point;
+  material: Material;
 
   constructor(gh: GraphicsHandler) {
     this.staticGraphic = new GraphicsHandler(STATIC_CONTAINER);
@@ -29,6 +31,7 @@ export default class Isomulation implements Project {
     this.grid = new IsoGrid(this.staticGraphic);
     this.grid.render(this.staticGraphic);
     Colors.initialize();
+    this.material = new Material("Light gray", "n2", "n0", "n4");
 
     window.onresize = () => {
       this.gh.updateSize();
@@ -65,7 +68,7 @@ export default class Isomulation implements Project {
   gameLoop() {
     this.gh.clear();
     const coord = this.grid.getGridPosition(mh.pos.x, mh.pos.y);
-    this.grid.fillSquare([coord[0], coord[1]], this.gh);
+    this.grid.fillSquare([coord[0], coord[1]], this.material, this.gh);
     requestAnimationFrame(() => this.gameLoop());
   }
 }

@@ -13,6 +13,10 @@ export default class Color {
     this.b = b;
   }
 
+  get rgba(): string {
+    return `rgba(${this.r},${this.g},${this.b},1.0)`;
+  }
+
   isLight(): boolean {
     return 0.299 * this.r + 0.587 * this.g + 0.114 * this.b > 128;
   }

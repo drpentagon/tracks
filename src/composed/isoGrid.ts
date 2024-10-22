@@ -8,7 +8,7 @@ import {
   getDistanceFromLine,
   getLinesIntersection,
 } from "../mathHelper.js";
-import mh from "../mouseHandler.js";
+import Material from "../primitives/material.js";
 
 export default class IsoGrid implements ComposedObject {
   axes: LineSegment[];
@@ -45,7 +45,7 @@ export default class IsoGrid implements ComposedObject {
   }
 
   render(gh: GraphicsHandler) {
-    gh.fillStyle = "rgba(0,0,0,0.05)";
+    gh.fillStyle = "rgba(0,0,0,0.03)";
     this.axes.forEach((center, i) => {
       const distances = this.corners.map((p) => getDistanceFromLine(center, p));
       let from = -Math.ceil(Math.max(...distances));
@@ -83,7 +83,7 @@ export default class IsoGrid implements ComposedObject {
     gh.drawPolygon([p1, p2, p3], true);
   }
 
-  fillSquare(coord: [number, number], gh: GraphicsHandler) {
+  fillSquare(coord: [number, number], material: Material, gh: GraphicsHandler) {
     const bounds = coord
       .map((c, d) => [this.getLine(c, d), this.getLine(c - 1, d)])
       .reduce((arr, c) => {
@@ -104,11 +104,11 @@ export default class IsoGrid implements ComposedObject {
     const left = [top[3], top[0], bottom[0], bottom[3]];
     const right = [top[0], top[1], bottom[1], bottom[0]];
 
-    gh.fillStyle = "rgba(180,180, 180,1.0)";
+    gh.fillStyle = material.highlight.rgba;
     gh.drawPolygon(top, true);
-    gh.fillStyle = "rgba(100,100, 100,1.0)";
+    gh.fillStyle = material.shadow.rgba;
     gh.drawPolygon(left, true);
-    gh.fillStyle = "rgba(140,140, 140,1.0)";
+    gh.fillStyle = material.color.rgba;
     gh.drawPolygon(right, true);
   }
 
