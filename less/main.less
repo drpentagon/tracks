@@ -25,6 +25,7 @@ body {
   overflow: hidden;
   position: fixed;
   font-size: 16px;
+  box-sizing: border-box;
 }
 
 .fontLoader {
@@ -76,4 +77,108 @@ body {
 .split-menu__cell p {
   color: white;
   mix-blend-mode: difference;
+}
+
+.dialog-wrapper {
+  &:extend(.fullscreen);
+  z-index: 20;
+  background-color: rgba(0, 0, 0, 0.1);
+  display: flex;
+  padding: 10px;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.dialog__color-picker {
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 3px;
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  max-height: 100%;
+  overflow: scroll;
+
+  @media (min-width: 377px) {
+    width: 316px;
+  }
+  @media (min-width: 439px) {
+    width: 378px;
+  }
+  @media (min-width: 501px) {
+    width: 440px;
+  }
+  @media (min-width: 563px) {
+    width: 502px;
+  }
+  @media (min-width: 625px) {
+    width: 564px;
+  }
+  @media (min-width: 687px) {
+    width: 626px;
+  }
+  @media (min-width: 749px) {
+    width: 688px;
+  }
+  @media (min-width: 811px) {
+    width: 750px;
+  }
+  @media (min-width: 873px) {
+    width: 812px;
+  }
+  @media (min-width: 935px) {
+    width: 874px;
+  }
+  @media (min-width: 997px) {
+    width: 936px;
+  }
+  @media (min-width: 1059px) {
+    width: 998px;
+  }
+  @media (min-width: 1121px) {
+    width: 1060px;
+  }
+  @media (min-width: 1183px) {
+    width: 1122px;
+  }
+  @media (min-width: 1245px) {
+    width: 1184px;
+  }
+  @media (min-width: 1307px) {
+    width: 1246px;
+  }
+  @media (min-width: 1369px) {
+    width: 1308px;
+  }
+  @media (min-width: 1431px) {
+    width: 1370px;
+  }
+}
+
+.color__wrapper {
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+  margin: 3px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  box-sizing: border-box;
+
+  &--inverted {
+    color: white;
+  }
+}
+
+.color__id {
+  font-size: 20px;
+  text-transform: uppercase;
+  line-height: 18px;
+}
+
+.color__name {
+  font-size: 12px;
 }

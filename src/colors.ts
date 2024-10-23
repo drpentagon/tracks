@@ -19,8 +19,30 @@ class Colors {
         const rgb = hexToRgb(c.color);
         this.colors.push(new Color(c.id, c.name, rgb.r, rgb.g, rgb.b));
       });
-
+    this.initDialog();
     this.initialized = true;
+  }
+
+  initDialog(): void {
+    const dialog = document.querySelector(".dialog__color-picker");
+    this.colors.forEach((c: Color) => {
+      const div = document.createElement("div");
+      div.classList.add("color__wrapper");
+      c.isLight() && div.classList.add("color__wrapper--inverted");
+      div.style.backgroundColor = c.rgba;
+
+      const id = document.createElement("h1");
+      id.innerText = c.id;
+      id.classList.add("color__id");
+
+      const name = document.createElement("label");
+      name.innerText = c.name;
+      name.classList.add("color__name");
+
+      div.appendChild(id);
+      div.appendChild(name);
+      dialog.appendChild(div);
+    });
   }
 
   getColor(id: string): Color {
