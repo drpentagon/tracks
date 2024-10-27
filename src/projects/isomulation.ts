@@ -5,11 +5,13 @@ import gtr from "../globalTranslation.js";
 import Point from "../primitives/point.js";
 import mh from "../mouseHandler.js";
 import Colors from "../colors.js";
-import Material from "../primitives/material.js";
+import Cube from "../primitives/cube.js";
 
 const STATIC_CONTAINER: HTMLElement = document.querySelector(
   ".static-graphics-wrapper"
 );
+
+let last = 0
 
 export default class Isomulation implements Project {
   backgroundColor: string = "#FFFF";
@@ -21,17 +23,42 @@ export default class Isomulation implements Project {
   then: number;
   grid: IsoGrid;
   panStart: Point;
-  material: Material;
+  cubes: Cube[];
 
   constructor(gh: GraphicsHandler) {
     this.staticGraphic = new GraphicsHandler(STATIC_CONTAINER);
     this.gh = gh;
-    gtr.zoom = 30;
+    gtr.zoom = 40;
     gtr.pan = new Point(0, 0);
     this.grid = new IsoGrid(this.staticGraphic);
     this.grid.render(this.staticGraphic);
-    Colors.initialize();
-    this.material = new Material("Light gray", "n2", "n0", "n4");
+
+    this.cubes = [];
+    for(let x = - 5; x < 5; x++) {
+      for(let y = 5; y < 11; y++) {
+        for(let z = -10; z < -1; z++) {
+          if(!((z >= -7 && z<= -4) && ((y > 5 && y < 10) || (x > -4 && x < 3)))) this.cubes.push(new Cube(x, y, z));
+        }
+      }      
+    }
+    this.cubes.push(new Cube(0, 10, 0));
+    this.cubes.push(new Cube(0, 9, 0));
+    this.cubes.push(new Cube(1, 10, 0);
+    this.cubes.push(new Cube(1, 9, 0));
+    this.cubes.push(new Cube(0, 7, 0));
+    this.cubes.push(new Cube(1, 7, 0));
+    this.cubes.push(new Cube(2, 7, 0));
+    this.cubes.push(new Cube(0, 10, 1));
+    this.cubes.push(new Cube(0, 9, 1));
+    this.cubes.push(new Cube(1, 10, 1);
+    this.cubes.push(new Cube(1, 9, 1));
+    this.cubes.push(new Cube(0, 7, 1));
+    this.cubes.push(new Cube(1, 7, 1));
+    
+    this.cubes.sort((c1, c2) => c1.x - c2.x)
+    this.cubes.sort((c1, c2) => c1.y - c2.y)
+    this.cubes.sort((c1, c2) => c1.z - c2.z)
+    console.log(this.cubes)
 
     window.onresize = () => {
       this.gh.updateSize();
@@ -67,8 +94,14 @@ export default class Isomulation implements Project {
 
   gameLoop() {
     this.gh.clear();
-    const coord = this.grid.getGridPosition(mh.pos.x, mh.pos.y);
-    this.grid.fillSquare([coord[0], coord[1]], this.material, this.gh);
+    // const coord = this.grid.getGridPosition(mh.pos.x, mh.pos.y);
+    // this.grid.fillSquare([coord[0], coord[1]], this.material, this.gh);
+    // const start:number = new Date().getTime()
+    // console.log("RENDER TIME", start - last)
+    // last = start
+    this.cubes.forEach((c) => c.render(this.gh));
+    // const stop:number = new Date().getTime()
+    
     requestAnimationFrame(() => this.gameLoop());
   }
 }

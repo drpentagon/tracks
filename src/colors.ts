@@ -3,10 +3,8 @@ import copic from "./resources/copic.js";
 
 class Colors {
   colors: Color[];
-  initialized: boolean;
 
-  initialize(): void {
-    if (this.initialized) return;
+  constructor() {
     this.colors = [];
 
     copic
@@ -20,7 +18,6 @@ class Colors {
         this.colors.push(new Color(c.id, c.name, rgb.r, rgb.g, rgb.b));
       });
     this.initDialog();
-    this.initialized = true;
   }
 
   initDialog(): void {
