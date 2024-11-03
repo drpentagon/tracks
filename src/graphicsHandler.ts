@@ -93,6 +93,13 @@ export default class GraphicsHandler {
     outline && this.stroke();
   }
 
+  drawPolygonEdge(points: Point[]): void {
+    this.beginPath();
+    this.moveTo(points[0]);
+    points.slice(1).forEach((p) => this.lineTo(p));
+    this.stroke();
+  }
+
   moveTo(p: Point): void {
     const { ctx } = this;
     ctx.moveTo(...gtr.toScreen(p));

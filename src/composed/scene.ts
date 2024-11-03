@@ -18,12 +18,12 @@ export default class Scene implements ComposedObject {
   }
 
   addCubePositions(cube: Cube): void {
-    this.addPosition(cube.a, cube.b, cube.c + 1, cube, 1);
-    this.addPosition(cube.a, cube.b, cube.c, cube, 1);
-    this.addPosition(cube.a + 1, cube.b, cube.c, cube, 2);
-    this.addPosition(cube.a + 1, cube.b + 1, cube.c, cube, 2);
+    this.addPosition(cube.a, cube.b, cube.c + 1, cube, 2);
+    this.addPosition(cube.a, cube.b, cube.c, cube, 3);
+    this.addPosition(cube.a + 1, cube.b, cube.c, cube, 4);
+    this.addPosition(cube.a + 1, cube.b + 1, cube.c, cube, 5);
     this.addPosition(cube.a + 1, cube.b + 1, cube.c + 1, cube, 0);
-    this.addPosition(cube.a, cube.b + 1, cube.c + 1, cube, 0);
+    this.addPosition(cube.a, cube.b + 1, cube.c + 1, cube, 1);
   }
 
   addPosition(a: number, b: number, c: number, cube: Cube, side: number): void {

@@ -37,7 +37,7 @@ export default class Isomulation implements Project {
 
     for (let x = -5; x < 5; x++) {
       for (let y = 0; y < 11; y++) {
-        for (let z = -10; z < -1; z++) {
+        for (let z = -10; z < 0; z++) {
           if (
             !(z >= -7 && z <= -4 && ((y > 5 && y < 10) || (x > -4 && x < 3)))
           ) {
