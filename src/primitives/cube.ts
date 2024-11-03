@@ -12,6 +12,9 @@ export default class Cube implements Primitive {
   z: number;
   material: Material;
   color: string;
+  a: number;
+  b: number;
+  c: number;
 
   constructor(
     x: number,
@@ -23,6 +26,21 @@ export default class Cube implements Primitive {
     this.y = y;
     this.z = z;
     this.material = material;
+
+    this.a = x - z;
+    this.b = y - z;
+    this.c = y - x;
+  }
+
+  isBehind(cube: Cube): boolean {
+    if (this.z < cube.z) return true;
+    if (this.z > cube.z) return false;
+    if (this.y < cube.y) return true;
+    if (this.y > cube.y) return false;
+    if (this.x < cube.x) return true;
+    if (this.x > cube.x) return false;
+
+    return true;
   }
 
   render(gh: GraphicsHandler) {

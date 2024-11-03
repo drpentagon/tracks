@@ -1,14 +1,9 @@
 import ComposedObject from "./composedObject";
 import GraphicsHandler from "../graphicsHandler";
-import LineSegment from "../primitives/lineSegment.js";
 import Point from "../primitives/point.js";
 import gtr from "../globalTranslation.js";
-import {
-  getLineOffset,
-  getDistanceFromLine,
-  getLinesIntersection,
-} from "../mathHelper.js";
-import { getGridAxes, getGridLine } from "../gridMath.js";
+import { getLineOffset, getDistanceFromLine } from "../mathHelper.js";
+import { getGridAxes } from "../gridMath.js";
 
 export default class IsoGrid implements ComposedObject {
   corners: Point[];
@@ -38,24 +33,8 @@ export default class IsoGrid implements ComposedObject {
         const l2: [Point, Point] = getLineOffset(axe, j + 1).getInfinitPoints(
           gh
         );
-        gh.drawPolygon([l1[0], l1[1], l2[1], l2[0]], true);
+        gh.drawPolygon([l1[0], l1[1], l2[1], l2[0]]);
       }
     });
-  }
-
-  fillPosition(coord: number[], gh: GraphicsHandler) {
-    const bounds: LineSegment[][] = getGridAxes().map((axe, i) => {
-      return [getLineOffset(axe, coord[i]), getLineOffset(axe, coord[i] - 1)];
-    });
-    const p1: Point = getLinesIntersection(bounds[0][0], bounds[1][0]);
-    const p2: Point = getLinesIntersection(bounds[0][1], bounds[1][1]);
-    const left: boolean = Math.abs(p1.x - bounds[2][0].p1.x) < 0.5;
-    const p3: Point = getLinesIntersection(
-      bounds[0][left ? 0 : 1],
-      bounds[1][left ? 1 : 0]
-    );
-    gh.strokeStyle = "rgba(0,0,0,0.7)";
-    gh.fillStyle = "rgba(0,0,0,0.3)";
-    gh.drawPolygon([p1, p2, p3], true);
   }
 }

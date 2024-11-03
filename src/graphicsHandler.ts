@@ -85,11 +85,12 @@ export default class GraphicsHandler {
     filled ? ctx.fill() : ctx.stroke();
   }
 
-  drawPolygon(points: Point[], filled: boolean = false): void {
+  drawPolygon(points: Point[], outline: boolean = false): void {
     this.beginPath();
     this.moveTo(points[points.length - 1]);
     points.forEach((p) => this.lineTo(p));
-    filled ? this.fill() : this.stroke();
+    this.fill();
+    outline && this.stroke();
   }
 
   moveTo(p: Point): void {
